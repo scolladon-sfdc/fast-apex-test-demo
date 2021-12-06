@@ -1,0 +1,12 @@
+{
+  "packageDirectories": [
+    {
+      "path": "demo-app",
+      "default": true
+    }
+  ],
+  "name": "fast-test",
+  "namespace": "",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "52.0"
+}
