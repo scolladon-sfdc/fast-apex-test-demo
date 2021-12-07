@@ -10,7 +10,7 @@ private class AccountServiceSlowTest {
     insert subject;
 
     // System under test
-    AccountService sut = new AccountService(new DMLHandler());
+    IAccountService sut = new AccountServiceWithoutDI();
 
     // Act
     sut.setRating(subject);
@@ -34,7 +34,7 @@ private class AccountServiceSlowTest {
     insert subject;
 
     // System under test
-    AccountService sut = new AccountService(new DMLHandler());
+    IAccountService sut = new AccountServiceWithoutDI();
 
     // Act
     sut.setRating(subject);
@@ -58,7 +58,7 @@ private class AccountServiceSlowTest {
     insert subject;
 
     // System under test
-    AccountService sut = new AccountService(new DMLHandler());
+    IAccountService sut = new AccountServiceWithoutDI();
 
     // Act
     sut.setRating(subject);

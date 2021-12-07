@@ -1,7 +1,7 @@
-public inherited sharing class AccountService {
+public inherited sharing class AccountServiceWithDI implements IAccountService {
   protected IDMLHandler dmlHandler;
 
-  public AccountService(final IDMLHandler dmlHandler) {
+  public AccountServiceWithDI(final IDMLHandler dmlHandler) {
     this.dmlHandler = dmlHandler;
   }
 

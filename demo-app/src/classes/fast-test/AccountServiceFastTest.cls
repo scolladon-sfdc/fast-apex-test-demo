@@ -11,7 +11,7 @@ private class AccountServiceFastTest {
     final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
 
     // System under test
-    AccountService sut = new AccountService(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
 
     // Act
     sut.setRating(subject);
@@ -32,7 +32,7 @@ private class AccountServiceFastTest {
     final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
 
     // System under test
-    AccountService sut = new AccountService(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
 
     // Act
     sut.setRating(subject);
@@ -53,7 +53,7 @@ private class AccountServiceFastTest {
     final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
 
     // System under test
-    AccountService sut = new AccountService(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
 
     // Act
     sut.setRating(subject);
