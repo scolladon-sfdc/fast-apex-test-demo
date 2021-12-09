@@ -8,12 +8,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 5001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final MockDriver dmlHandlerDriver = new MockDriver();
+
     final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
-      IDMLHandler.class,
-      dmlHandlerDriver
+      IDMLHandler.class
     );
-    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
+    final MethodSpy doUpdateSpy = MockFactory.getMock((Object) dmlHandlerStub)
+      .getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
@@ -34,12 +34,11 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 3001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final MockDriver dmlHandlerDriver = new MockDriver();
     final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
-      IDMLHandler.class,
-      dmlHandlerDriver
+      IDMLHandler.class
     );
-    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
+    final MethodSpy doUpdateSpy = MockFactory.getMock((Object) dmlHandlerStub)
+      .getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
@@ -60,12 +59,11 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 2001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final MockDriver dmlHandlerDriver = new MockDriver();
     final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
-      IDMLHandler.class,
-      dmlHandlerDriver
+      IDMLHandler.class
     );
-    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
+    final MethodSpy doUpdateSpy = MockFactory.getMock((Object) dmlHandlerStub)
+      .getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);

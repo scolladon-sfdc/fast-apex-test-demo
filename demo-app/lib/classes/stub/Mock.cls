@@ -1,12 +1,8 @@
 @isTest
-public class MockDriver implements System.StubProvider {
+public class Mock implements System.StubProvider {
   private Map<String, MethodSpy> spies = new Map<String, MethodSpy>();
 
-  public MockDriver() {
-  }
-
-  public static Object stub(final Type aType, final MockDriver aProvider) {
-    return Test.createStub(aType, aProvider);
+  public Mock() {
   }
 
   public Object handleMethodCall(
