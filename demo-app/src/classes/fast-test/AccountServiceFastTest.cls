@@ -8,7 +8,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 5001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+    final MockDriver dmlHandlerDriver = new MockDriver();
+    final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
+      IDMLHandler.class,
+      dmlHandlerDriver
+    );
+    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
@@ -18,7 +23,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Hot', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    System.assert(doUpdateSpy.hasBeenCalled());
   }
 
   @isTest
@@ -29,7 +34,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 3001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+    final MockDriver dmlHandlerDriver = new MockDriver();
+    final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
+      IDMLHandler.class,
+      dmlHandlerDriver
+    );
+    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
@@ -39,7 +49,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Warm', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    System.assert(doUpdateSpy.hasBeenCalled());
   }
 
   @isTest
@@ -50,7 +60,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 2001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+    final MockDriver dmlHandlerDriver = new MockDriver();
+    final IDMLHandler dmlHandlerStub = (IDMLHandler) MockFactory.stub(
+      IDMLHandler.class,
+      dmlHandlerDriver
+    );
+    final MethodSpy doUpdateSpy = dmlHandlerDriver.getSpy('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
@@ -60,7 +75,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Cold', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    System.assert(doUpdateSpy.hasBeenCalled());
   }
 
   static Id getRandomId(SObjectType type) {
