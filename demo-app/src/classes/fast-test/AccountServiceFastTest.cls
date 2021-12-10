@@ -8,17 +8,21 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 5001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
+    dmlHandlerStub.spyOn('doUpdate');
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
     System.assertEquals('Hot', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
   }
 
   @isTest
@@ -29,17 +33,20 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 3001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
+    dmlHandlerStub.spyOn('doUpdate');
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
     System.assertEquals('Warm', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
   }
 
   @isTest
@@ -50,17 +57,21 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 2001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final DMLHandlerStub dmlHandlerStub = new DMLHandlerStub();
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
+    dmlHandlerStub.spyOn('doUpdate');
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
     System.assertEquals('Cold', subject.Rating);
-    System.assert(dmlHandlerStub.updateStub.hasBeenCalled());
+    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
+    //System.assert(doUpdateSpy.hasBeenCalled());
   }
 
   static Id getRandomId(SObjectType type) {

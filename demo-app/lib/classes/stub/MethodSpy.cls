@@ -9,8 +9,8 @@
  *
  */
 @IsTest
-@NamespaceAccessible
 public class MethodSpy {
+  // TODO add number of time it has been called
   public String methodName;
   private Boolean hasBeenCalled = false;
   private List<Object> lastCallParams;
@@ -18,32 +18,26 @@ public class MethodSpy {
   private Object returnValue;
   private Exception exceptionToThrow;
 
-  @NamespaceAccessible
   public MethodSpy(String methodName) {
     this.methodName = methodName;
   }
 
-  @NamespaceAccessible
   public List<Object> getLastCallParams() {
     return this.lastCallParams;
   }
 
-  @NamespaceAccessible
   public Boolean hasBeenCalled() {
     return this.hasBeenCalled;
   }
 
-  @NamespaceAccessible
   public Object call() {
     return this.call(new List<Object>());
   }
 
-  @NamespaceAccessible
   public Object call(Object param) {
     return this.call(new List<Object>{ param });
   }
 
-  @NamespaceAccessible
   public Object call(List<Object> params) {
     this.hasBeenCalled = true;
     this.lastCallParams = params;
@@ -69,22 +63,18 @@ public class MethodSpy {
     );
   }
 
-  @NamespaceAccessible
   public void returns(Object value) {
     this.returnValue = value;
   }
 
-  @NamespaceAccessible
   public void throwsException(Exception exceptionToThrow) {
     this.exceptionToThrow = exceptionToThrow;
   }
 
-  @NamespaceAccessible
   public ParameterizedMethodSpyCall whenCalledWith(Object param) {
     return whenCalledWith(new List<Object>{ param });
   }
 
-  @NamespaceAccessible
   public ParameterizedMethodSpyCall whenCalledWith(List<Object> params) {
     final ParameterizedMethodSpyCall parameterizedMethodCall = new ParameterizedMethodSpyCall(
       params

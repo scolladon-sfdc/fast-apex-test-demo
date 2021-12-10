@@ -1,12 +1,26 @@
-@NamespaceAccessible
 @IsTest
 public class Assertions {
-  @NamespaceAccessible
+  // TODO handle multiple calls of the same method spy
   public interface ParametersMatcher {
     void assertMatches(List<Object> actualParams);
   }
 
-  @NamespaceAccessible
+  public class StubAssert {
+    private Stub stub;
+
+    private StubAssert(Stub stub) {
+      this.stub = stub;
+    }
+
+    public MethodSpyAssert method(final String methodName) {
+      final MethodSpy aSPy = this.stub.getSpy(methodName);
+      if (aSPy == null) {
+        System.assert(false, 'No spy declared for method ' + methodName);
+      }
+      return new MethodSpyAssert(aSPy);
+    }
+  }
+
   public class MethodSpyAssert {
     private MethodSpy spy;
 
@@ -14,7 +28,6 @@ public class Assertions {
       this.spy = spy;
     }
 
-    @NamespaceAccessible
     public void hasNotBeenCalled() {
       System.assertEquals(
         false,
@@ -25,7 +38,6 @@ public class Assertions {
       );
     }
 
-    @NamespaceAccessible
     public void hasBeenCalled() {
       System.assertEquals(
         true,
@@ -36,12 +48,10 @@ public class Assertions {
       );
     }
 
-    @NamespaceAccessible
     public void hasBeenCalledWith(Object params) {
       this.hasBeenCalledWith(new List<Object>{ params });
     }
 
-    @NamespaceAccessible
     public void hasBeenCalledWith(ParametersMatcher matcher) {
       System.assertNotEquals(
         null,
@@ -53,7 +63,6 @@ public class Assertions {
       matcher.assertMatches(spy.getLastCallParams());
     }
 
-    @NamespaceAccessible
     public void hasBeenCalledWith(List<Object> params) {
       System.assertNotEquals(
         null,
@@ -66,7 +75,6 @@ public class Assertions {
     }
   }
 
-  @NamespaceAccessible
   public class SObjectAssert {
     private SObject value;
 
@@ -92,13 +100,15 @@ public class Assertions {
     }
   }
 
-  @NamespaceAccessible
   public static SObjectAssert assertThat(SObject value) {
     return new SObjectAssert(value);
   }
 
-  @NamespaceAccessible
   public static MethodSpyAssert assertThat(MethodSpy spy) {
     return new MethodSpyAssert(spy);
+  }
+
+  public static StubAssert assertThat(Stub stub) {
+    return new StubAssert(stub);
   }
 }
