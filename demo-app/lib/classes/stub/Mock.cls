@@ -2,9 +2,6 @@
 public class Mock implements System.StubProvider {
   private Map<String, MethodSpy> spies = new Map<String, MethodSpy>();
 
-  public Mock() {
-  }
-
   public Object handleMethodCall(
     Object stubbedObject,
     String stubbedMethodName,
@@ -13,6 +10,7 @@ public class Mock implements System.StubProvider {
     List<String> listOfParamNames,
     List<Object> listOfArgs
   ) {
+    // TODO: handle method overloads
     MethodSpy spy = this.getSpy(stubbedMethodName);
     return spy.call(listOfArgs);
   }

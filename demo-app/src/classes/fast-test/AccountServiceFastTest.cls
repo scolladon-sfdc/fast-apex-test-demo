@@ -9,19 +9,18 @@ private class AccountServiceFastTest {
       Id = getRandomId(Account.getSObjectType())
     );
 
-    final IDMLHandler dmlHandlerStub = (IDMLHandler) StubFactory.stub(
-      IDMLHandler.class
-    );
-    final MethodSpy doUpdateSpy = StubFactory.getMock((Object) dmlHandlerStub)
-      .getSpy('doUpdate');
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
+    final MethodSpy doUpdateSpy = dmlHandlerStub.getMethodSpy('doUpdate');
     System.assertEquals('Hot', subject.Rating);
     System.assert(doUpdateSpy.hasBeenCalled());
   }
@@ -34,19 +33,18 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 3001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final IDMLHandler dmlHandlerStub = (IDMLHandler) StubFactory.stub(
-      IDMLHandler.class
-    );
-    final MethodSpy doUpdateSpy = StubFactory.getMock((Object) dmlHandlerStub)
-      .getSpy('doUpdate');
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
+    final MethodSpy doUpdateSpy = dmlHandlerStub.getMethodSpy('doUpdate');
     System.assertEquals('Warm', subject.Rating);
     System.assert(doUpdateSpy.hasBeenCalled());
   }
@@ -59,19 +57,18 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 2001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final IDMLHandler dmlHandlerStub = (IDMLHandler) StubFactory.stub(
-      IDMLHandler.class
-    );
-    final MethodSpy doUpdateSpy = StubFactory.getMock((Object) dmlHandlerStub)
-      .getSpy('doUpdate');
+    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
 
     // System under test
-    IAccountService sut = new AccountServiceWithDI(dmlHandlerStub);
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerStub.instance
+    );
 
     // Act
     sut.setRating(subject);
 
     // Assert
+    final MethodSpy doUpdateSpy = dmlHandlerStub.getMethodSpy('doUpdate');
     System.assertEquals('Cold', subject.Rating);
     System.assert(doUpdateSpy.hasBeenCalled());
   }
