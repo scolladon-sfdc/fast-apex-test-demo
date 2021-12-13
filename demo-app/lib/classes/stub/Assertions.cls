@@ -5,15 +5,15 @@ public class Assertions {
     void assertMatches(List<Object> actualParams);
   }
 
-  public class StubAssert {
-    private Stub stub;
+  public class MockAssert {
+    private Mock mock;
 
-    private StubAssert(Stub stub) {
-      this.stub = stub;
+    private MockAssert(Mock mock) {
+      this.mock = mock;
     }
 
     public MethodSpyAssert method(final String methodName) {
-      final MethodSpy aSPy = this.stub.getSpy(methodName);
+      final MethodSpy aSPy = this.mock.getSpy(methodName);
       if (aSPy == null) {
         System.assert(false, 'No spy declared for method ' + methodName);
       }
@@ -108,7 +108,7 @@ public class Assertions {
     return new MethodSpyAssert(spy);
   }
 
-  public static StubAssert assertThat(Stub stub) {
-    return new StubAssert(stub);
+  public static MockAssert assertThat(Mock mock) {
+    return new MockAssert(mock);
   }
 }

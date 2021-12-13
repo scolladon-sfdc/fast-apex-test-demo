@@ -1,6 +1,14 @@
 @isTest
 public class Mock implements System.StubProvider {
+  public Object stub { get; private set; }
   private Map<String, MethodSpy> spies = new Map<String, MethodSpy>();
+
+  private Mock() {
+  }
+
+  private Mock(final Type aType) {
+    this.stub = Test.createStub(aType, this);
+  }
 
   public Object handleMethodCall(
     Object stubbedObject,
@@ -13,7 +21,7 @@ public class Mock implements System.StubProvider {
     // TODO: handle method overloads
     Object result;
     if (this.spies.containsKey(stubbedMethodName)) {
-      MethodSpy spy = this.spyOn(stubbedMethodName);
+      MethodSpy spy = this.spies.get(stubbedMethodName);
       result = spy.call(listOfArgs);
     }
 
@@ -25,5 +33,13 @@ public class Mock implements System.StubProvider {
       this.spies.put(methodName, new MethodSpy(methodName));
     }
     return this.spies.get(methodName);
+  }
+
+  public MethodSpy getSpy(final String methodName) {
+    return this.spies.get(methodName);
+  }
+
+  public static Mock forType(final Type aType) {
+    return new Mock(aType);
   }
 }

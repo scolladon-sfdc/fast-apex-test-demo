@@ -9,12 +9,12 @@ private class AccountServiceFastTest {
       Id = getRandomId(Account.getSObjectType())
     );
 
-    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
-    dmlHandlerStub.spyOn('doUpdate');
+    final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
+    dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
-      (IDMLHandler) dmlHandlerStub.instance
+      (IDMLHandler) dmlHandlerMock.stub
     );
 
     // Act
@@ -22,7 +22,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Hot', subject.Rating);
-    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
+    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
   }
 
   @isTest
@@ -33,12 +33,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 3001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
-    dmlHandlerStub.spyOn('doUpdate');
+    final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
+    dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
-      (IDMLHandler) dmlHandlerStub.instance
+      (IDMLHandler) dmlHandlerMock.stub
     );
 
     // Act
@@ -46,7 +46,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Warm', subject.Rating);
-    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
+    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
   }
 
   @isTest
@@ -57,12 +57,12 @@ private class AccountServiceFastTest {
       NumberOfEmployees = 2001,
       Id = getRandomId(Account.getSObjectType())
     );
-    final Stub dmlHandlerStub = Stub.forType(IDMLHandler.class);
-    dmlHandlerStub.spyOn('doUpdate');
+    final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
+    dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
-      (IDMLHandler) dmlHandlerStub.instance
+      (IDMLHandler) dmlHandlerMock.stub
     );
 
     // Act
@@ -70,7 +70,7 @@ private class AccountServiceFastTest {
 
     // Assert
     System.assertEquals('Cold', subject.Rating);
-    Assertions.assertThat(dmlHandlerStub).method('doUpdate').hasBeenCalled();
+    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
     //System.assert(doUpdateSpy.hasBeenCalled());
   }
 
