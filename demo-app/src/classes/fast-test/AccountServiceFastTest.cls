@@ -21,8 +21,16 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    System.assertEquals('Hot', subject.Rating);
-    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
+    Assertions.assertThat(dmlHandlerMock)
+      .method('doUpdate')
+      .hasBeenCalledWith(
+        new Account(
+          Name = 'test',
+          NumberOfEmployees = 5001,
+          Id = subject.Id,
+          Rating = 'Hot'
+        )
+      );
   }
 
   @isTest
@@ -45,8 +53,16 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    System.assertEquals('Warm', subject.Rating);
-    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
+    Assertions.assertThat(dmlHandlerMock)
+      .method('doUpdate')
+      .hasBeenCalledWith(
+        new Account(
+          Name = 'test',
+          NumberOfEmployees = 3001,
+          Id = subject.Id,
+          Rating = 'Warm'
+        )
+      );
   }
 
   @isTest
@@ -69,9 +85,16 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    System.assertEquals('Cold', subject.Rating);
-    Assertions.assertThat(dmlHandlerMock).method('doUpdate').hasBeenCalled();
-    //System.assert(doUpdateSpy.hasBeenCalled());
+    Assertions.assertThat(dmlHandlerMock)
+      .method('doUpdate')
+      .hasBeenCalledWith(
+        new Account(
+          Name = 'test',
+          NumberOfEmployees = 2001,
+          Id = subject.Id,
+          Rating = 'Cold'
+        )
+      );
   }
 
   static Id getRandomId(SObjectType type) {
