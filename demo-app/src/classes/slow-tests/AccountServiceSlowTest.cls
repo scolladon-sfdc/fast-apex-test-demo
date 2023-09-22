@@ -21,7 +21,7 @@ private class AccountServiceSlowTest {
       FROM Account
       WHERE Id = :subject.Id
     ];
-    System.assertEquals('Hot', actual.Rating);
+    Assert.areEqual('Hot', actual.Rating, 'Rating should be "Hot"');
   }
 
   @isTest
@@ -45,7 +45,7 @@ private class AccountServiceSlowTest {
       FROM Account
       WHERE Id = :subject.Id
     ];
-    System.assertEquals('Warm', actual.Rating);
+    Assert.areEqual('Warm', actual.Rating, 'Rating should be "Warm"');
   }
 
   @isTest
@@ -69,6 +69,6 @@ private class AccountServiceSlowTest {
       FROM Account
       WHERE Id = :subject.Id
     ];
-    System.assertEquals('Cold', actual.Rating);
+    Assert.areEqual('Cold', actual.Rating, 'Rating should be "Cold"');
   }
 }

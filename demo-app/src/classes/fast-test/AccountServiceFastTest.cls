@@ -10,7 +10,7 @@ private class AccountServiceFastTest {
     );
 
     final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
-    dmlHandlerMock.spyOn('doUpdate');
+    final MethodSpy doUpdateSpy = dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
@@ -21,8 +21,8 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    Assertions.assertThat(dmlHandlerMock)
-      .method('doUpdate')
+    Assert.areEqual('Hot', subject.Rating, 'Rating should be "Hot"');
+    Expect.that(doUpdateSpy)
       .hasBeenCalledWith(
         new Account(
           Name = 'test',
@@ -42,7 +42,7 @@ private class AccountServiceFastTest {
       Id = getRandomId(Account.getSObjectType())
     );
     final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
-    dmlHandlerMock.spyOn('doUpdate');
+    final MethodSpy doUpdateSpy = dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
@@ -53,8 +53,8 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    Assertions.assertThat(dmlHandlerMock)
-      .method('doUpdate')
+    Assert.areEqual('Warm', subject.Rating, 'Rating should be "Warm"');
+    Expect.that(doUpdateSpy)
       .hasBeenCalledWith(
         new Account(
           Name = 'test',
@@ -74,7 +74,7 @@ private class AccountServiceFastTest {
       Id = getRandomId(Account.getSObjectType())
     );
     final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
-    dmlHandlerMock.spyOn('doUpdate');
+    final MethodSpy doUpdateSpy = dmlHandlerMock.spyOn('doUpdate');
 
     // System under test
     IAccountService sut = new AccountServiceWithDI(
@@ -85,8 +85,8 @@ private class AccountServiceFastTest {
     sut.setRating(subject);
 
     // Assert
-    Assertions.assertThat(dmlHandlerMock)
-      .method('doUpdate')
+    Assert.areEqual('Cold', subject.Rating, 'Rating should be "Cold"');
+    Expect.that(doUpdateSpy)
       .hasBeenCalledWith(
         new Account(
           Name = 'test',
@@ -95,6 +95,42 @@ private class AccountServiceFastTest {
           Rating = 'Cold'
         )
       );
+  }
+
+  @isTest
+  static void setRating_givenWrongAccount_ThrowsException() {
+    // Arrange
+    final Account subject = new Account(Name = 'Wrong');
+    final Mock dmlHandlerMock = Mock.forType(IDMLHandler.class);
+    final MethodSpy doUpdateSpy = dmlHandlerMock.spyOn('doUpdate');
+    doUpdateSpy.throwsException(new TestException('Wrong Account'));
+
+    // System under test
+    IAccountService sut = new AccountServiceWithDI(
+      (IDMLHandler) dmlHandlerMock.stub
+    );
+
+    // Act
+    try {
+      sut.setRating(subject);
+    } catch (Exception ex) {
+      // Assert
+      Assert.areEqual(
+        'Cold',
+        subject.Rating,
+        'Rating should be "Cold" (default)'
+      );
+      Assert.isInstanceOfType(
+        ex,
+        TestException.class,
+        'Exception should be TestException'
+      );
+      Expect.that(doUpdateSpy)
+        .hasBeenCalledWith(new Account(Name = 'Wrong', Rating = 'Cold'));
+    }
+  }
+
+  class TestException extends Exception {
   }
 
   static Id getRandomId(SObjectType type) {
